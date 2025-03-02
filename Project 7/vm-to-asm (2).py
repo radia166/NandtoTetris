@@ -1,4 +1,3 @@
-#Radia Tabassum , id:2402355
 import sys
 
 
