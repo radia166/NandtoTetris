@@ -1,0 +1,31 @@
+# Project 10
+
+## Overview
+In this project, you will build a **syntax analyzer** for the **Jack programming language**. The analyzer processes `.jack` files, tokenizes them, and compiles them into XML files that represent the syntactic structure of the code.
+
+You will be implementing two core components:
+1. **JackTokenizer**: This component is responsible for breaking the input `.jack` file into tokens (keywords, symbols, identifiers, constants).
+2. **CompilationEngine**: This component will take the tokens produced by the JackTokenizer and compile them into XML output that represents the structure of the Jack program.
+
+## How to Structure Your Code
+
+**`JackAnalyzer.py`**:
+   - This is the **main entry point** for the project.
+   - You need to implement your own functions, classes, or modules to realize the tokenization and compilation process within the `analyze_file(file_path)` function.
+   - You can refer to the example provided in the source code of `JackAnalyzer.py` for guidance on how to structure your tokenizer and compiler.
+
+### Core Tasks
+1. **Tokenization (JackTokenizer)**:
+   - Implement the logic to  break `.jack` file into individual tokens (keywords, symbols, identifiers, constants).
+   - Your tokenizer should correctly identify the token types and ignore comments and whitespace.
+   
+2. **Compilation (CompilationEngine)**:
+   - After tokenization, implement the logic to parse the tokens into their corresponding language constructs (e.g., classes, subroutines, statements) and generate the correct XML output.
+
+## Usage of `JackAnalyzer.py`
+
+The **`JackAnalyzer.py`** script processes both individual `.jack` files and directories containing multiple `.jack` files.
+
+### Command:
+```bash
+python3 JackAnalyzer.py source ## Single jack file/Folder containing Jack files
