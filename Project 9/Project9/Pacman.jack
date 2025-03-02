@@ -1,0 +1,100 @@
+class Pacman {
+    field int x, y;
+   constructor Pacman new(int initialX, int initialY) {
+        let x = initialX;
+        let y = initialY;
+        return this;
+    }
+
+   // return the coordinates of x and y
+    method int getX() {
+        return x;
+    }
+    method int getY() {
+        return y;
+    }
+
+    //moving pacman
+    method void moveLeft() {
+        let x = x - 2;
+        if (x < 0) {
+            let x = 511; // if its moving to left edge, wrap around to right edge
+        }
+        do draw();
+        return;
+    }
+    method void moveRight() {
+        let x = x + 2;
+        if (x > 511) {
+            let x = 0; // if its moving to right edge, wrap around to left edge
+        }
+        do draw(); 
+        return;
+    }
+    method void moveUp() {
+        let y = y - 2;
+        if (y < 0) {
+            let y = 255; // wraping
+        }
+        do draw(); 
+        return;
+    }
+    method void moveDown() {
+        let y = y + 2;
+        if (y > 255) {
+            let y = 0;
+        }
+        do draw(); 
+        return;
+    }
+
+    method void draw() {
+       do Screen.setColor(true);
+       do Screen.drawCircle(x, y, 5);
+       return;
+    }
+
+      //pacman eating the dot
+    method boolean hasEatenDot(Dot dot) {
+        var int dotX, dotY, deltaX, deltaY, distanceSquared;
+        let dotX = dot.getX();
+        let dotY = dot.getY();
+
+        let deltaX = x - dotX;
+        let deltaY = y - dotY;
+        let distanceSquared = (deltaX * deltaX) + (deltaY * deltaY);
+
+        if ((distanceSquared < 9) | (distanceSquared = 9)) {
+            return true;
+        }
+        return false;
+    }
+
+    //colliding with ghost
+    method boolean hasCollided(Ghost ghost) {
+        var int ghostX, ghostY;
+        var int deltaX, deltaY;
+        var int distanceSquared;
+
+        let ghostX = ghost.getX();
+        let ghostY = ghost.getY();
+
+        // calculating the differences in X and Y
+        let deltaX = x - ghostX;
+        let deltaY = y - ghostY;
+
+        // calculating the  distance squared
+        let distanceSquared = (deltaX * deltaX) + (deltaY * deltaY);
+
+        // check it the distance is less than 12 units / 144 in distance squared
+        if ((distanceSquared < 144) | (distanceSquared = 144)) {
+            return true;
+        }
+        return false;
+    }
+    
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}

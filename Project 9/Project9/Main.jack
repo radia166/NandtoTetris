@@ -1,0 +1,14 @@
+/* Its a very basic version of the pacman game, where a circle (pacman) is chasing a dot.
+ if it eats the dot then score increases , while two ghosts chase the pacman. if they colide, then game over
+ */
+
+
+class Main {
+    function void main() {
+        var PacmanGame game;
+        let game = PacmanGame.new();  // create new game instance
+        do game.run();
+        do game.dispose();            // dispose game resources
+        return;
+    }
+}

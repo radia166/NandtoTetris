@@ -1,0 +1,41 @@
+class Ghost {
+    field int x, y;
+
+    constructor Ghost new(int initialX, int initialY) {
+        let x = initialX;
+        let y = initialY;
+        return this;
+    }
+    method int getX() {
+        return x;
+    }
+    method int getY() {
+        return y;
+    }
+
+    //drawing the ghost
+    method void draw() {
+        do Screen.drawRectangle(x, y, x + 5, y + 5);
+        return;
+    }
+
+     //move ghosts toward pacman
+    method void move(int pacmanX, int pacmanY) {
+        if (x < pacmanX) {
+            let x = x + 1;  // move right
+        } else  {
+            let x = x - 1;  // move left
+        }
+        if (y < pacmanY) {
+            let y = y + 1;  // move down
+        } else  {
+            let y = y - 1;  // move up
+        }
+        return;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}

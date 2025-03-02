@@ -1,0 +1,44 @@
+class Dot {
+    field int x, y;
+
+    constructor Dot new(int initialX, int initialY) {
+        let x = initialX;
+        let y = initialY;
+        return this;
+    }
+
+    method int getX() {
+        return x;
+    }
+
+    method int getY() {
+        return y;
+    }
+
+    method void reset(int newX, int newY) {
+        let x = newX;
+        let y = newY;
+        return;
+    }
+
+   method void draw() {
+        var int maxX, maxY; //maximum X and Y values for the dot, so it fits within screen
+        let maxX = 506;  //as dot 5 pixel, maxX = 511 - 5 = 506
+        let maxY = 250;
+
+        if (x > maxX) {
+            let x = maxX;  //the dot's coordinates are within the bounds
+        }
+
+        if (y > maxY) {
+            let y = maxY;
+        }
+        do Screen.drawRectangle(x, y, x + 5, y + 5); //the dot size 5x5
+        return;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}

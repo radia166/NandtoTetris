@@ -1,0 +1,76 @@
+function Dot.new 0
+    push constant 2
+    call Memory.alloc 1
+    pop pointer 0
+    push argument 0
+    pop this 0
+    push argument 1
+    pop this 1
+    push pointer 0
+    return
+function Dot.getX 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    return
+function Dot.getY 0
+    push argument 0
+    pop pointer 0
+    push this 1
+    return
+function Dot.reset 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    pop this 0
+    push argument 2
+    pop this 1
+    push constant 0
+    return
+function Dot.draw 2
+    push argument 0
+    pop pointer 0
+    push constant 506
+    pop local 0
+    push constant 250
+    pop local 1
+    push this 0
+    push local 0
+    gt
+    not
+    if-goto Dot_1
+    push local 0
+    pop this 0
+    goto Dot_0
+label Dot_1
+label Dot_0
+    push this 1
+    push local 1
+    gt
+    not
+    if-goto Dot_3
+    push local 1
+    pop this 1
+    goto Dot_2
+label Dot_3
+label Dot_2
+    push this 0
+    push this 1
+    push this 0
+    push constant 5
+    add
+    push this 1
+    push constant 5
+    add
+    call Screen.drawRectangle 4
+    pop temp 0
+    push constant 0
+    return
+function Dot.dispose 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return

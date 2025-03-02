@@ -1,0 +1,103 @@
+class PacmanGame {
+    field Pacman pacman;
+    field Ghost ghost1, ghost2;
+    field Dot dot;
+    field boolean exit;
+    field int score;
+
+    constructor PacmanGame new() {
+        // Initialize Pacman, Ghosts, and Dot
+        let pacman = Pacman.new(30, 30);  // Pacman starts at (30,30)
+        let ghost1 = Ghost.new(100, 10);   // ghost1 position
+        let ghost2 = Ghost.new(200, 100);   // ghost2 position
+        let dot = Dot.new(100, 100);
+        let score = 0;
+        let exit = false;
+        return this;
+    }
+
+    method void clear() {
+    do Screen.setColor(true); // Set to a lighter color
+    do Screen.drawRectangle(0, 0, 511, 255);
+    return;
+    }
+
+    method void dispose() {
+        do pacman.dispose();
+        do ghost1.dispose();
+        do ghost2.dispose();
+        do dot.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+   
+    method void run() {
+        var int pacmanX, pacmanY;
+        var int dotX, dotY;
+        var boolean dotEaten;
+        var boolean collisionOccurred;
+
+        let dotEaten = false;
+        let collisionOccurred = false;
+
+        while (~exit) {
+            // current positions of Pacman and Dot
+            let pacmanX = pacman.getX();
+            let pacmanY = pacman.getY();
+            let dotX = dot.getX();
+            let dotY = dot.getY();
+
+            // move Pacman toward the dot
+            if (pacmanX < dotX) { do pacman.moveRight(); }
+            if (pacmanX > dotX) { do pacman.moveLeft(); }
+            if (pacmanY < dotY) { do pacman.moveDown(); }
+            if (pacmanY > dotY) { do pacman.moveUp(); }
+
+            // move ghosts toward Pacman
+            do ghost1.move(pacmanX, pacmanY);  // Ghost 1 moves towards Pacman
+            do ghost2.move(pacmanX, pacmanY);  // Ghost 2 moves towards Pacman
+
+            // checking if Pacman has eaten the dot
+            if (pacman.hasEatenDot(dot)) {
+                let score = score + 1;
+                do dot.reset(20 + score * 10, 20 + score * 10);  // Respawn dot at a new position
+                let dotEaten = true;
+            }
+
+            // if Pacman has collided with ghost = game over
+            if (pacman.hasCollided(ghost1) | pacman.hasCollided(ghost2)) {
+                let exit = true;  // trigger exit
+                do Output.moveCursor(10, 10);
+                do Output.printString("Game Over");
+                return;  // break the loop and end the game
+            }
+
+            // Clear screen and redraw all objects
+            do pacman.draw();
+            do ghost1.draw();
+            do ghost2.draw();
+            do dot.draw();
+
+            //display the score
+            do Output.moveCursor(22, 0);
+            do Output.printString("Score: ");
+            do Output.printInt(score);
+
+            do Sys.wait(800); // for smoother animation
+        }
+
+        // check game over reasons
+        if (collisionOccurred) {
+            do Output.moveCursor(100, 100);
+            do Output.printString("Game Over");  //if collision happened
+        } else {
+            // If the game ended normally
+            do Output.moveCursor(10, 10);
+            do Output.printString("Highest Score: ");
+            do Output.printInt(score);  //display the final score
+        }
+
+        return;
+        
+    }
+}
